@@ -6,7 +6,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-
+    apiKey: "AIzaSyBzQd55qHikQyVvg_6O8bdI2pimvWIH0JU",
+    authDomain: "de-ve-de-f3dce.firebaseapp.com",
+    projectId: "de-ve-de-f3dce",
+    storageBucket: "de-ve-de-f3dce.appspot.com",
+    messagingSenderId: "526174611407",
+    appId: "1:526174611407:web:0eef41332a0845deeb54ba"
 };
 
 // Initialize Firebase
