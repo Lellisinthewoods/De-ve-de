@@ -18,6 +18,3 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 console.log("hej hej!");
-
-export{app}
-console.log(app)

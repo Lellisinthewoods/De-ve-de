@@ -1,0 +1,40 @@
+*{
+    box-sizing: border-box;
+    background-color: aliceblue;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+header{
+    min-height: 5rem;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size:larger;
+}
+
+input{
+    margin:0.5rem;
+    padding:0.5rem;
+    background-color:white;
+}
+
+button{
+    color: white;
+    background-color:darkblue;
+    padding:0.5rem;
+    margin: 1rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+button:hover{
+    background-color: rgb(0, 0, 57);
+    padding:1rem;
+    margin:0.5rem;
+}
