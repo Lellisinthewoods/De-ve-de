@@ -1,3 +1,3 @@
-import {app} from 'myFirebase.js';
+import {app} from '/myFirebase.js';
 
 console.log(app);
