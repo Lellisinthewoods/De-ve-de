@@ -54,20 +54,34 @@ async function movielistFunction(){
         <li>${movie.data().title}</li>
         <li>${movie.data().genre}</li>
         <li>${movie.data().released}</li>
-        <button ID="deleteButton${movieIndex}">Ta bort film</button><br>`;
+        <button ID="deleteButton${movieIndex}">Sett!</button><br>`;
         movielistSection.insertAdjacentHTML(`beforeend`, listElem);
         let deleteBTNS = document.querySelectorAll(`#deleteButton${movieIndex}`);
         deleteBTNS.forEach(btn => {
             btn.addEventListener(`click`, () =>{
-                deleteMovieFunction(movie.id);
+                console.log(btn)
+                deleteMovieFunction(movie.id, movie.data());
             })
         })
         movieIndex++;
     });
 }
 
-async function deleteMovieFunction(movieID){
-    console.log(movieID);
+async function deleteMovieFunction(movieID, movieData){
     await deleteDoc(doc(db, 'DE-VE-DE-DB', movieID));
+    addMovieToWatched(movieData)
     movielistFunction();
+}
+
+async function addMovieToWatched(movieData){
+    console.log(movieData);
+    let movieTitle = movieData.title;
+    let movieGenre = movieData.genre;
+    let movieDate = movieData.released;
+    debugger;
+    await addDoc(collection(db, 'MOVIES'),{
+        title: movieTitle,
+        genre: movieGenre,
+        released: movieDate
+    });
 }
