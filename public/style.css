@@ -5,8 +5,18 @@
 }
 
 header{
-    min-height: 5rem;
+    min-height: 3rem;
+    margin: 2rem auto auto 2rem;
 }
+
+a{
+    color:white;
+    font-size:xx-large;
+    text-decoration: none;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+
 
 main{
     display: flex;
@@ -16,12 +26,29 @@ main{
     font-size:larger;
 }
 
+nav{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+nav button{
+    background-color:blueviolet;
+}
+
 section{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
+
+ul{
+    display: flex;
+    flex-direction: column;
+}
+
 article{
     display: flex;
     align-items: center;

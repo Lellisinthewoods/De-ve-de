@@ -1,7 +1,10 @@
 import { collection, addDoc, getDocs, deleteDoc, doc, } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
 let movielistSection = document.querySelector(`#movielist`); //ul-element in HTML (in section)
-let movielistFooter = document.querySelector(`footer`); //footer-element in HTML (in section)
+let articleElem = document.querySelector(`article`); //article-element in HTML
+let mainElem = document.querySelector(`main`); //main-element in HTML
+let navElem = document.querySelector(`nav`); //nav-element in HTML
+let foundMovie;
 
 async function saveToDataBase(movieTitle, movieGenre, movieDate, db) {
     await addDoc(collection(db, 'DE-VE-DE-DB'), {
@@ -12,6 +15,9 @@ async function saveToDataBase(movieTitle, movieGenre, movieDate, db) {
 }
 
 async function seeMovielistFunction(db, chooseCollection){
+    navElem.style.display="none";
+    mainElem.style.display="none";
+    movielistSection.style.display="flex";
     movielistSection.innerHTML='';
     const movielist = await getDocs(collection(db,`${chooseCollection}`));
     let movieIndex = 0;
@@ -25,7 +31,6 @@ async function seeMovielistFunction(db, chooseCollection){
         <button ID="deleteButton${movieIndex}">Sett!</button><br>`;
         movielistSection.insertAdjacentHTML(`beforeend`, listElem);
         let deleteBTNS = document.querySelectorAll(`#deleteButton${movieIndex}`);
-        movielistFooter.innerHTML = `<a href="index.html">Tillbaka till start</a>`;
         if(chooseCollection == `DE-VE-DE-DB`)
         {
         deleteBTNS.forEach(btn => {
@@ -63,4 +68,48 @@ async function deleteMovieFunction(movieID, movieData, db){
     seeMovielistFunction(db);
 }
 
-export{saveToDataBase, seeMovielistFunction}
+function searchSectionFunction(db) {
+    navElem.style.display=`none`;
+    mainElem.style.display=`none`;
+    articleElem.innerHTML=`
+    <p>Du kan enbart söka på sparade filmer</p><br>
+    <input ID="searchMovieInput" type="text" placeholder="Sök med titel...">
+    <button ID="searchMovieButton">Sök!</button>
+    <ul ID="foundMovie"></ul>
+    `;
+    let searchMovieInput = document.querySelector(`#searchMovieInput`)
+    let searchMovieButton = document.querySelector(`#searchMovieButton`)
+    foundMovie = document.querySelector(`#foundMovie`);
+    searchMovieButton.addEventListener(`click`,()=>{
+        let usermovie = (searchMovieInput.value.toUpperCase());
+        console.log(usermovie)
+        console.log("Du söker efter en film!")
+        searchMovielistFunction(usermovie, db);
+    })
+    //sökfunktionen går igenom SPARADE FILMER dvs DE-VE-DE-DB
+}
+
+async function searchMovielistFunction(usermovie, db){
+    const movielist = await getDocs(collection(db,`DE-VE-DE-DB`));
+    let movieBool = true;
+    movielist.forEach(movie => {
+        let currentmovie = movie.data().title.toUpperCase();
+        console.log(currentmovie)
+        if((usermovie == currentmovie) && (movieBool == true))
+        {
+            console.log(movie.data())
+            foundMovie.innerHTML = `
+            <li>${currentmovie}</li>
+            <li>${movie.data().genre}</li>
+            <li>${movie.data().released}</li>
+            `;
+            movieBool = false;
+        }
+        else if (movieBool == true)
+        {
+            foundMovie.innerHTML = `Filmen "${usermovie}" hittades inte.`;
+        }
+    });
+}
+
+export{saveToDataBase, seeMovielistFunction, searchSectionFunction}

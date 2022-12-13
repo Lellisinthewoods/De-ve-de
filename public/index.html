@@ -8,20 +8,21 @@
     <title>De-ve-de</title>
 </head>
 <body>
-    <header></header>
+    <header><a href="index.html">DE-VE-DE</a></header>
     <main>
         <p>Titel</p><input ID="movieTitle" type="text" placeholder="Skriv filmens titel...">
         <p>Genre</p><input ID="movieGenre" type="text" placeholder="Skriv filmens genre...">
         <p>Utgivningsdatum</p><input ID="movieDate" type="date">
         <button ID="saveButton">Spara film</button>
+    </main>
+    <nav>
         <button ID="movielistButton">Visa sparade filmer</button>
         <button ID="deletedMovielistButton">Visa borttagna filmer</button>
         <button ID="searchSectionButton">SÖK FILM!</button>
-    </main>
-    <article><footer ID="articleFooter"></footer></article>
+    </nav>
+    <article></article> <!--får SÖK-INPUT från javascripten-->
     <section>
         <ul ID="movielist"></ul>
-        <footer ID="sectionFooter"></footer>
     </section>
     <script type="module" src="myScript.js"></script>
 </body>
