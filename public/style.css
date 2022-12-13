@@ -16,6 +16,19 @@ main{
     font-size:larger;
 }
 
+section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+article{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 input{
     margin:0.5rem;
     padding:0.5rem;

@@ -1,6 +1,7 @@
 import { collection, addDoc, getDocs, deleteDoc, doc, } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-let movielistSection = document.querySelector(`#movielist`);
+let movielistSection = document.querySelector(`#movielist`); //ul-element in HTML (in section)
+let movielistFooter = document.querySelector(`footer`); //footer-element in HTML (in section)
 
 async function saveToDataBase(movieTitle, movieGenre, movieDate, db) {
     await addDoc(collection(db, 'DE-VE-DE-DB'), {
@@ -18,12 +19,13 @@ async function seeMovielistFunction(db, chooseCollection){
         console.log(movie.id)
         console.log(movie.data().title)
         const listElem = `
-        <li>${movie.data().title}</li>
+        <li>${movie.data().title.toUpperCase()}</li>
         <li>${movie.data().genre}</li>
         <li>${movie.data().released}</li>
         <button ID="deleteButton${movieIndex}">Sett!</button><br>`;
         movielistSection.insertAdjacentHTML(`beforeend`, listElem);
         let deleteBTNS = document.querySelectorAll(`#deleteButton${movieIndex}`);
+        movielistFooter.innerHTML = `<a href="index.html">Tillbaka till start</a>`;
         if(chooseCollection == `DE-VE-DE-DB`)
         {
         deleteBTNS.forEach(btn => {
