@@ -19,8 +19,8 @@ async function seeMovielistFunction(db, chooseCollection){
     mainElem.style.display="none";
     movielistSection.style.display="flex";
     movielistSection.innerHTML='';
-    const movielist = await getDocs(collection(db,`${chooseCollection}`));
     let movieIndex = 0;
+    const movielist = await getDocs(collection(db,`${chooseCollection}`));
     movielist.forEach(movie => {
         console.log(movie.id)
         console.log(movie.data().title)
@@ -86,7 +86,6 @@ function searchSectionFunction(db) {
         console.log("Du söker efter en film!")
         searchMovielistFunction(usermovie, db);
     })
-    //sökfunktionen går igenom SPARADE FILMER dvs DE-VE-DE-DB
 }
 
 async function searchMovielistFunction(usermovie, db){
