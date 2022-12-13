@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
 import { getFirestore, collection, addDoc, } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { movielistFunction } from "./myFunctions.js";
+import { seeMovielistFunction, saveToDataBase } from "./myFunctions.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,22 +24,21 @@ let movieGenre = document.querySelector(`#movieGenre`);
 let movieDate = document.querySelector(`#movieDate`);
 let saveBTN = document.querySelector(`#saveButton`);
 let movielistBTN = document.querySelector(`#movielistButton`);
+let deletedMovielistBTN = document.querySelector(`#deletedMovielistButton`);
 
 saveBTN.addEventListener(`click`, ()=>{
-    saveToDataBase(movieTitle.value, movieGenre.value, movieDate.value)
+    saveToDataBase(movieTitle.value, movieGenre.value, movieDate.value, db)
 })
 
 movielistBTN.addEventListener(`click`, ()=>{
-    movielistFunction(db);
+    seeMovielistFunction(db, `DE-VE-DE-DB`);
 })
 
-async function saveToDataBase(movieTitle, movieGenre, movieDate) {
-    await addDoc(collection(db, 'DE-VE-DE-DB'), {
-        title: movieTitle,
-        genre: movieGenre,
-        released: movieDate
-    });
-}
+deletedMovielistBTN.addEventListener(`click`, ()=>{
+    seeMovielistFunction(db, `MOVIES`);
+})
+
+
 
 
 

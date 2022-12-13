@@ -1,13 +1,18 @@
 import { collection, addDoc, getDocs, deleteDoc, doc, } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-function myHello(){
-    console.log("Vad fin du är idag!")
+let movielistSection = document.querySelector(`#movielist`);
+
+async function saveToDataBase(movieTitle, movieGenre, movieDate, db) {
+    await addDoc(collection(db, 'DE-VE-DE-DB'), {
+        title: movieTitle,
+        genre: movieGenre,
+        released: movieDate
+    });
 }
 
-async function movielistFunction(db){
-    let movielistSection = document.querySelector(`#movielist`);
+async function seeMovielistFunction(db, chooseCollection){
     movielistSection.innerHTML='';
-    const movielist = await getDocs(collection(db,'DE-VE-DE-DB'));
+    const movielist = await getDocs(collection(db,`${chooseCollection}`));
     let movieIndex = 0;
     movielist.forEach(movie => {
         console.log(movie.id)
@@ -19,6 +24,8 @@ async function movielistFunction(db){
         <button ID="deleteButton${movieIndex}">Sett!</button><br>`;
         movielistSection.insertAdjacentHTML(`beforeend`, listElem);
         let deleteBTNS = document.querySelectorAll(`#deleteButton${movieIndex}`);
+        if(chooseCollection == `DE-VE-DE-DB`)
+        {
         deleteBTNS.forEach(btn => {
             btn.addEventListener(`click`, () =>{
                 console.log(btn)
@@ -26,6 +33,13 @@ async function movielistFunction(db){
             })
         })
         movieIndex++;
+    }
+        else{
+            deleteBTNS.forEach(btn => {
+                btn.style.display='none';
+            })
+        }
+
     });
 }
 
@@ -34,7 +48,6 @@ async function addMovieToWatched(movieData, db){
     let movieTitle = movieData.title;
     let movieGenre = movieData.genre;
     let movieDate = movieData.released;
-    debugger;
     await addDoc(collection(db, 'MOVIES'),{
         title: movieTitle,
         genre: movieGenre,
@@ -45,7 +58,7 @@ async function addMovieToWatched(movieData, db){
 async function deleteMovieFunction(movieID, movieData, db){
     await deleteDoc(doc(db, 'DE-VE-DE-DB', movieID));
     addMovieToWatched(movieData, db)
-    movielistFunction(db);
+    seeMovielistFunction(db);
 }
 
-export{myHello, movielistFunction}
+export{saveToDataBase, seeMovielistFunction}
