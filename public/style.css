@@ -26,6 +26,12 @@ main{
     font-size:larger;
 }
 
+#movieSavedText{
+    color:red;
+    margin:0.5rem;
+    font-size:medium;
+}
+
 nav{
     display:flex;
     flex-direction: row;
