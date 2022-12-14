@@ -93,7 +93,6 @@ async function searchMovielistFunction(usermovie, db){ //searches through the da
     let movieBool = true;
     movielist.forEach(movie => {
         let currentmovie = movie.data().title.toUpperCase();
-        console.log(currentmovie)
         if((usermovie == currentmovie) && (movieBool == true))
         {
             foundMovie.innerHTML = `
