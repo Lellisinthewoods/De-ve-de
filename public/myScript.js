@@ -3,7 +3,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebas
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { seeMovielistFunction, saveToDataBase, searchSectionFunction } from "./myFunctions.js";
+import { seeMovielistFunction, saveToDataBase, } from "./myFunctions.js";
+import { searchSectionFunction } from "./mySearchFunctions.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 /*this module contains the main contact with the HTML document. 
-The click events call functions from the module containing my functions.
+The click events call functions from the modules containing the functions.
 This makes my code easier to read and manage at first glance*/
 
 let movieTitle = document.querySelector(`#movieTitle`); //input
