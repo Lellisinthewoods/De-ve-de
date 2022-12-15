@@ -33,7 +33,7 @@ let searchSectionButton = document.querySelector(`#searchSectionButton`); //butt
 let movieSavedText = document.querySelector(`#movieSavedText`) //text underneath save button
 
 saveBTN.addEventListener(`click`, ()=>{
-    saveToDataBase(movieTitle.value, movieGenre.value, movieDate.value, db)
+    saveToDataBase(movieTitle.value.toUpperCase(), movieGenre.value, movieDate.value, db)
     movieSavedText.style.display=`flex`;
     movieSavedText.innerText =`${movieTitle.value} sparades!`;
 })

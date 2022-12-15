@@ -1,9 +1,9 @@
-import { collection, addDoc, getDocs, deleteDoc, doc, } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+import { collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
 /*this module contains my own functions and the variables they need to work.
-there are 6 functions. if I were to add more functions, I would add another module 
+there are 6 functions. If I were to add more functions, I would add another module 
 and divide between the functions that call firestore and the functions that don't.
-This way I don't need to call firebase functions in every module.*/
+That way I wouldn't need to call firebase functions in every module.*/
 
 let movielistSection = document.querySelector(`#movielist`); //ul-element in HTML (in section)
 let articleElem = document.querySelector(`article`); //article-element in HTML
@@ -89,24 +89,36 @@ function searchSectionFunction(db) { //displays the section where the user can s
 }
 
 async function searchMovielistFunction(usermovie, db){ //searches through the database with saved movies
-    const movielist = await getDocs(collection(db,`DE-VE-DE-DB`));
-    let movieBool = true;
-    movielist.forEach(movie => {
-        let currentmovie = movie.data().title.toUpperCase();
-        if((usermovie == currentmovie) && (movieBool == true))
+
+    foundMovie.innerHTML='';
+    const movielistQuery = query(collection(db, 'DE-VE-DE-DB'), where('title', '==', usermovie));
+    console.log(movielistQuery)
+
+    const result = await getDocs(movielistQuery);
+    console.log(result)
+    let resultMovie = {};
+    let resultMovieList = [];
+    result.forEach((movie) => {
+        resultMovie = (movie.data());
+        resultMovieList.push(resultMovie)
+     })
+
+    if((resultMovie.title==undefined)){
+        foundMovie.innerHTML = `Filmen "${usermovie}" hittades inte.`;
+    }
+    else 
+    {
+        for (let i = 0; i < resultMovieList.length; i++) 
         {
-            foundMovie.innerHTML = `
-            <li>${currentmovie}</li>
-            <li>${movie.data().genre}</li>
-            <li>${movie.data().released}</li>
+            console.log(resultMovie.title)
+            let foundMovieElem = `
+            <li>${resultMovie.title}</li>
+            <li>${resultMovie.genre}</li>
+            <li>${resultMovie.released}</li><br>
             `;
-            movieBool = false;
+            foundMovie.insertAdjacentHTML(`beforeend`, foundMovieElem);
         }
-        else if (movieBool == true)
-        {
-            foundMovie.innerHTML = `Filmen "${usermovie}" hittades inte.`;
-        }
-    });
+    }
 }
 
 export{saveToDataBase, seeMovielistFunction, searchSectionFunction}
