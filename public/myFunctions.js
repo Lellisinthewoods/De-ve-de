@@ -1,9 +1,10 @@
 import { collection, addDoc, getDocs, deleteDoc, doc, } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-/*this module contains the basic functions of my code and the variables they use.
+/*this module contains the basic functions (save, delete, & display movies, plus 
+add-to-deleted-movies) of my code and the variables they use.
 The functions I use for the website's Search-page are in the module "mySearchFunctions".
-This is because this is an added feature to the original site, and work independently from
-the functions below.*/
+This is because this is an added feature to the original site, and the two functions it contains
+work independently from the functions below.*/
 
 let movielistSection = document.querySelector(`#movielist`); //ul-element in HTML (in section)
 let mainElem = document.querySelector(`main`); //main-element in HTML
@@ -29,7 +30,7 @@ async function seeMovielistFunction(db, chooseCollection){ //displays movie list
         <li>${movie.data().title.toUpperCase()}</li>
         <li>${movie.data().genre}</li>
         <li>${movie.data().released}</li>
-        <button ID="deleteButton${movieIndex}">Sett!</button><br>`;
+        <button ID="deleteButton${movieIndex}">Ta bort!</button><br>`;
         movielistSection.insertAdjacentHTML(`beforeend`, listElem);
         let deleteBTNS = document.querySelectorAll(`#deleteButton${movieIndex}`);
         if(chooseCollection == `DE-VE-DE-DB`)
@@ -51,7 +52,7 @@ async function seeMovielistFunction(db, chooseCollection){ //displays movie list
     });
 }
 
-async function deleteMovieFunction(movieID, movieData, db){ //delete movies from database
+async function deleteMovieFunction(movieID, movieData, db){ //deletes movies from database
     await deleteDoc(doc(db, 'DE-VE-DE-DB', movieID));
     addMovieToWatched(movieData, db)
     seeMovielistFunction(db, `DE-VE-DE-DB`);

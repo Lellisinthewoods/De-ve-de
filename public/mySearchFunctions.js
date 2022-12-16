@@ -3,9 +3,9 @@ import {query, collection, where, getDocs} from "https://www.gstatic.com/firebas
 /*This module contains the sections I use to let the user search for movie titles.
 searchSectionFunction gives us the look of the search-page, including the input-area and button.
 searchMovielistFunction searches for the movie and displays the result on the website.
-these functions are largely independent from the other functions, which is why I put them
+These functions are largely independent from the other functions, which is why I put them
 in the same module. 
-The downside is that some of the variables used below are defined twice, once in this module
+The downside to this is that some of the variables used below are defined twice, once in this module
 and once in the module "myFunctions".*/
 
 let articleElem = document.querySelector(`article`); //article-element in HTML
@@ -44,7 +44,7 @@ async function searchMovielistFunction(usermovie, db){ //searches through the da
     result.forEach((movie) => {
         resultMovie = (movie.data());
         resultMovieList.push(resultMovie)
-     })
+    })
 
     if((resultMovie.title==undefined)){
         foundMovie.innerHTML = `Filmen "${usermovie}" hittades inte.`;

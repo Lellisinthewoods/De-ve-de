@@ -1,8 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 import { seeMovielistFunction, saveToDataBase, } from "./myFunctions.js";
 import { searchSectionFunction } from "./mySearchFunctions.js";
 
@@ -20,9 +18,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/*this module contains the main contact with the HTML document. 
+/*this module contains the main contact with the HTML document (aka the start-page). 
 The click events call functions from the modules containing the functions.
-This makes my code easier to read and manage at first glance*/
+This makes my code easier to read and manage at first glance.*/
 
 let movieTitle = document.querySelector(`#movieTitle`); //input
 let movieGenre = document.querySelector(`#movieGenre`); //input
